@@ -7,6 +7,10 @@
     It retrieves and saves all messages, including text, images, and links, from a specified Telegram channel for easy backup and access.
 </p>
 
+<p align="center">
+    <img alt="GitHub License" src="https://img.shields.io/github/license/Warnigo/telegram-chanal-copy?style=flat&label=license&labelColor=%23ffffff&color=%23454545">
+</p>
+
 ## Telethon Channel Clone
 
 - Clone any telegram channel or group (public & private both)
@@ -15,11 +19,11 @@
 ### Clone this repository
 
 ```sh
-git clone https://github.com/Warnigo/channeler.git
+git clone https://github.com/Warnigo/telegram-chanal-copy.git
 ```
 
 ```sh
-cd channeler
+cd telegram-chanal-copy
 ```
 
 ### Edit [config.py](./config.py) file before use
