@@ -88,3 +88,9 @@ python bot.py
 ```sh
 python3 bot.py
 ```
+
+> [!NOTE]
+> If you want to exit the virtual environment `(venv)`, you can deactivate it by using the following command:
+```bash
+deactivate
+```
