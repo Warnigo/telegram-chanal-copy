@@ -1,7 +1,10 @@
 /config.py
 /telegram-chanel.session
-/telegram-chanel.session-journes
+/telegram-chanel.session-journal
 
 temp_media
 __pycache__
 myvenv
+myenv
+
+.DS_Store
