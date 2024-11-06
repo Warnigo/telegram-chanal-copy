@@ -2,7 +2,7 @@ import os
 import time
 from datetime import datetime
 from telethon.sync import TelegramClient
-from telethon.tl.types import MessageService, DocumentAttributeVideo
+from telethon.tl.types import MessageService, DocumentAttributeVideo, DocumentAttributeFilename
 from config import Config as BOT_SETTING
 
 TEMP_DIR = "temp_media"
@@ -16,6 +16,14 @@ def is_video(message):
     if message.document:
         for attr in message.document.attributes:
             if isinstance(attr, DocumentAttributeVideo):
+                return True
+    return False
+
+def is_round_video(message):
+    """Check if the video should be sent as a round video."""
+    if message.document:
+        for attr in message.document.attributes:
+            if isinstance(attr, DocumentAttributeVideo) and attr.round_message:
                 return True
     return False
 
@@ -38,8 +46,19 @@ with TelegramClient(BOT_SETTING.NAME, BOT_SETTING.API_ID, BOT_SETTING.API_HASH) 
 
                 if file_path:
                     caption = message.text or ''
-                    if is_video(message):
-                        log(f"Sending video with caption: {caption}")
+                    if is_video(message) and is_round_video(message):
+                        log(f"Sending round video with caption: {caption}")
+                        client.send_file(
+                            BOT_SETTING.DEST_CHAT_ID,
+                            file_path,
+                            caption=caption,
+                            attributes=[
+                                DocumentAttributeVideo(duration=0, w=240, h=240, round_message=True, supports_streaming=True),
+                                DocumentAttributeFilename(file_path.split('/')[-1])
+                            ]
+                        )
+                    elif is_video(message):
+                        log(f"Sending video as document with caption: {caption}")
                         client.send_file(
                             BOT_SETTING.DEST_CHAT_ID,
                             file_path,
