@@ -1,1 +1,7 @@
 /config.py
+/telegram-chanel.session
+/telegram-chanel.session-journes
+
+temp_media
+__pycache__
+myvenv
