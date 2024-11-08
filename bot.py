@@ -6,15 +6,40 @@ from telethon.tl.types import MessageService, DocumentAttributeVideo
 from config import Config as BOT_SETTING
 
 TEMP_DIR = "temp_media"
-
 os.makedirs(TEMP_DIR, exist_ok=True)
 
 def log_message(action, message_type, details=""):
     print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {action}: {message_type} {details}")
 
+def get_last_message_id(client, chat_id):
+    """The last message in DEST_CHAT_ID returns the ID."""
+    last_message = client.iter_messages(chat_id, limit=1)
+    for message in last_message:
+        return message.text if message.text else message.id
+    return None
+
+def find_message_index(client, chat_id, last_message_text):
+    """Finding the last message sent in SRC_CHAT_ID."""
+    if not last_message_text:
+        return None
+    for message in client.iter_messages(chat_id, reverse=True):
+        if message.text == last_message_text or message.id == last_message_text:
+            return message.id
+    return None
+
 with TelegramClient(BOT_SETTING.NAME, BOT_SETTING.API_ID, BOT_SETTING.API_HASH) as client:
     amount_sent = 0
-    for message in client.iter_messages(BOT_SETTING.SRC_CHAT_ID, reverse=True):
+
+    last_dest_message_text = get_last_message_id(client, BOT_SETTING.DEST_CHAT_ID)
+
+    start_from_id = find_message_index(client, BOT_SETTING.SRC_CHAT_ID, last_dest_message_text)
+
+    if start_from_id:
+        messages = client.iter_messages(BOT_SETTING.SRC_CHAT_ID, min_id=start_from_id, reverse=True)
+    else:
+        messages = client.iter_messages(BOT_SETTING.SRC_CHAT_ID, reverse=True)
+
+    for message in messages:
         if isinstance(message, MessageService):
             continue
         try:
