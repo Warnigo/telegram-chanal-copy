@@ -30,9 +30,15 @@ def find_message_index(client, chat_id, last_message_text):
 with TelegramClient(BOT_SETTING.NAME, BOT_SETTING.API_ID, BOT_SETTING.API_HASH) as client:
     amount_sent = 0
 
-    last_dest_message_text = get_last_message_id(client, BOT_SETTING.DEST_CHAT_ID)
+    user_input = input("Want to upload new messages? (y/n): ").strip().lower()
 
-    start_from_id = find_message_index(client, BOT_SETTING.SRC_CHAT_ID, last_dest_message_text)
+    if user_input == 'y':
+        log_message("Info", "Mode", "New message loading mode")
+        last_dest_message_text = get_last_message_id(client, BOT_SETTING.DEST_CHAT_ID)
+        start_from_id = find_message_index(client, BOT_SETTING.SRC_CHAT_ID, last_dest_message_text)
+    else:
+        log_message("Info", "Mode", "Load all messages again")
+        start_from_id = None
 
     if start_from_id:
         messages = client.iter_messages(BOT_SETTING.SRC_CHAT_ID, min_id=start_from_id, reverse=True)
