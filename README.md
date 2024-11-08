@@ -11,37 +11,68 @@
     <img alt="GitHub License" src="https://img.shields.io/github/license/Warnigo/telegram-chanal-copy?style=flat&label=license&labelColor=%23ffffff&color=%23454545">
 </p>
 
-## Telethon Channel Clone
+---
 
-- Clone any telegram channel or group (public & private both)
-- You must have member of source channel or group
+## ✨ Features
 
-### Clone this repository
+- 📋 Clone any **Telegram channel or group** (supports both public & private).
+- 🔄 You **must be a member** of the source channel or group to copy its content.
+- 🛠 Automatically handles text, images, PDFs, and videos for efficient backup.
+
+---
+
+### 📂 Clone this Repository
 
 ```sh
 git clone https://github.com/Warnigo/telegram-chanal-copy.git
-```
 
-```sh
 cd telegram-chanal-copy
 ```
 
-### Edit [config.py](./config.py) file before use
+## 🛠 Configuration
+
+### 1. Edit [config.py](./config.py) file before use
 
 - `API_ID` and `API_HASH` - Get those from [my.telegram.org](http://my.telegram.org/)
 - `PHONE_NUMBER` - Give phone number with country code (ex. +998901234567)
 - `NAME` - Give any name what you want
-- `SRC_CHAT_ID` and `DEST_CHAT_ID` - Get those from [@userinfobot](https://telegram.dog/userinfobot)
+- `SOURCE_CHAT_ID` and `DESTINATION_CHAT_ID` - Get those from [@username_idbot](https://telegram.dog/username_idbot)
 
-### Create Virtual Environment
+#### Example `config.py`:
 
+```python
+class Config:
+    API_ID = "12345678"            # Your API ID
+    API_HASH = "your_api_hash"     # Your API Hash
+    PHONE_NUMBER = "+998901234567" # Your phone number (with country code)
+    NAME = "telegram-channel"      # Any name you choose
+    SOURCE_CHAT_ID = -1001234567890 # Source channel/group ID
+    DESTINATION_CHAT_ID = -1009876543210 # Destination channel/group ID
+```
+
+>[!NOTE]
+> Make sure to replace the placeholders with your actual credentials.
+
+### 2. Create the config.py file
+
+If it doesn't exist, create the configuration file:
+
+```bash
+touch config.py
+```
+
+## 🐍 Virtual Environment Setup
+
+It's highly recommended to use a virtual environment to avoid dependency conflicts.
+
+### 1. Create a Virtual Environment
 - #### Windows
 
 ```sh
 python -m venv myenv
 ```
 
-- #### MacOS and Linux
+- #### macOS and Linux
 
 ```sh
 python3 -m venv myenv
@@ -51,47 +82,72 @@ python3 -m venv myenv
 
 - #### Windows
 
-```sh
+```powershell
 .\myenv\Scripts\activate
 ```
 
-- #### MacOS and Linux
+- #### macOS and Linux
 
-```sh
+```bash
 source myenv/bin/activate
 ```
 
-### Install module [telethon](https://pypi.org/project/Telethon/)
-
-- #### Windows
-
-```sh
-pip install telethon
-```
-
-- #### MacOS and Linux
-
-```sh
-pip3 install telethon
-```
-
-### Run script
-
-- #### Windows
-
-```sh
-python bot.py
-```
-
-- #### MacOS and Linux
-
-```sh
-python3 bot.py
-```
-
 > [!NOTE]
-> If you want to exit the virtual environment `(venv)`, you can deactivate it by using the following command:
+> To deactivate the virtual environment at any time, simply run:
 
 ```bash
 deactivate
 ```
+
+## 📦 Install Dependencies
+
+The script relies on the Telethon library to interact with Telegram.
+
+### Install [telethon](https://pypi.org/project/Telethon/)
+
+- #### Windows
+
+```powershell
+pip install telethon
+```
+
+- #### macOS and Linux
+
+```bash
+pip3 install telethon
+```
+
+## 🚀 Running the Script
+
+### To start copying content:
+
+- #### Windows
+
+```powershell
+python bot.py
+```
+
+- #### macOS and Linux
+
+```bash
+python3 bot.py
+```
+
+## 📋 Usage Instructions
+Upon running the script, you'll be prompted to choose whether to load new messages or resend all messages from the source channel.
+
+- Enter `y` to only copy new messages from the source channel to the destination.
+- Enter `n` to copy all messages again from the source to the destination.
+
+>[!NOTE]
+> If you interrupt the script and restart it, you can choose to continue from where you left off or start over.
+
+## 🛠 Troubleshooting
+- Make sure you have joined both the source and destination channels/groups before running the script.
+- Double-check your API credentials if you encounter authentication errors.
+If the script stops unexpectedly, you can rerun it. Use the y/n prompt to control what content is copied.
+
+## ❤️ Support
+If you find this project useful, please ⭐️ star the repository to show your support!
+
+<p align="center"> <samp>Made with ❤️ by Warnigo</samp> </p> 
